@@ -1,13 +1,9 @@
-console.log('hello');
-
 const ratingsHTML = document.querySelectorAll(".rating");
-console.log(ratingsHTML);
 const rating = {};
 const hover = {};
 
-const updateClass = (rating, id, element, hover = false) => {
-  console.log('-----------: ', hover)
-  if (hover && Number(hover <= rating)) {
+const updateClass = (rating = 0, id, element, hover = false) => {
+  if (hover && Number(id) <=  Number(hover)) {
     element.classList.remove("star-blank");
     element.classList.add("star-filled");
   } else if (Number(id) <= rating) {
@@ -22,27 +18,32 @@ const updateClass = (rating, id, element, hover = false) => {
 const setRating = (e, idx) => {
   const {id} =  e.target;
   rating[idx] = id;
-  // debugger;
   const stars = ratingsHTML[idx].children;
-  console.log('id: ', id)
-  console.log(stars);
   for (let i = 0; i < stars.length; i++) {
-    console.log(stars[i]);
     updateClass(id, i + 1, stars[i]);
   }
 };
 
+const setHover = (ratingIndex, hoverId, type) => {
+  if (type === "mouseenter") {
+    hover[ratingIndex] = hoverId;
+  } else {
+    hover[ratingIndex] = false;
+  }
+
+  const stars = ratingsHTML[ratingIndex].children;
+  for (let i = 0; i < stars.length; i++) {
+    updateClass(rating[ratingIndex], i + 1, stars[i], hover[ratingIndex]);
+  }
+} 
+
 ratingsHTML.forEach((rating, ratingIndex) => {
   rating[ratingIndex] = false;
-  console.log(hover)
-  // addEventListener("click", (e) => {console.log(e.target.id)})
-  rating.addEventListener("click", (e) => {setRating(e, ratingIndex)})
+  
+  rating.addEventListener("click", (e) => {setRating(e, ratingIndex)});
   
   rating.querySelectorAll(".star").forEach((star, starIndex) => {
-    // console.log(rating);
-    // star.addEventListener("mouseenter", (e) => {setRatingAndHover(e, ratingIndex, "mouseenter", starIndex)})
-    // star.addEventListener("mouseleave", (e) => {setRatingAndHover(e, ratingIndex, "mouseleave"), starIndex})
+    star.addEventListener("mouseenter", (e) => {setHover(ratingIndex, e.target.id, "mouseenter")});
+    star.addEventListener("mouseleave", (e) => {setHover(ratingIndex, e.target.id, "mouseleave")});
   })
-  // rating.addEventListener("mouseenter", (e) => {console.log('runnning mouse enter')})
-  // addEventListener("mouseleave", (e) => {setRatingAndHover(e, idx, "mouseleave")})
 })
