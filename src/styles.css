@@ -1,0 +1,19 @@
+body {
+  font-family: sans-serif;
+}
+
+.rating {
+  width: 12rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.star-blank {
+  font-size: 2rem;
+  color: gray;
+}
+
+.star-filled {
+  font-size: 2rem;
+  color: #f6a41d;
+}
