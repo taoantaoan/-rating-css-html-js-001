@@ -1,8 +1,8 @@
 const ratingsHTML = document.querySelectorAll(".rating");
-const rating = {};
+let rating = {};
 const hover = {};
 
-const updateClass = (rating = 0, id, element, hover = false) => {
+const updateClass = (rating, id, element, hover = false) => {
   if (hover && Number(id) <=  Number(hover)) {
     element.classList.remove("star-blank");
     element.classList.add("star-filled");
@@ -15,13 +15,14 @@ const updateClass = (rating = 0, id, element, hover = false) => {
   }
 };
 
-const setRating = (e, idx) => {
-  const {id} =  e.target;
+const setRating = (e, idx, altId) => {
+  const id = e ?  e.target.id : altId;
   rating[idx] = id;
   const stars = ratingsHTML[idx].children;
   for (let i = 0; i < stars.length; i++) {
     updateClass(id, i + 1, stars[i]);
   }
+  localStorage.setItem('ratings', JSON.stringify(rating));
 };
 
 const setHover = (ratingIndex, hoverId, type) => {
@@ -36,6 +37,19 @@ const setHover = (ratingIndex, hoverId, type) => {
     updateClass(rating[ratingIndex], i + 1, stars[i], hover[ratingIndex]);
   }
 } 
+
+window.onload = (event) => {
+  rating =  localStorage.getItem('ratings');
+  if (rating === null) {
+    rating = {}
+  } else {
+    rating = JSON.parse(rating);
+    Object.entries(rating).forEach((rating) => {
+      setRating(undefined, Number(rating[0]), Number(rating[1]))
+    })
+  }
+  console.log(rating);
+};
 
 ratingsHTML.forEach((rating, ratingIndex) => {
   rating[ratingIndex] = false;
