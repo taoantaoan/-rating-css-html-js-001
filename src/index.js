@@ -3,9 +3,13 @@ let rating = {};
 const hover = {};
 
 const updateClass = (rating, id, element, hover = false) => {
+  console.log('hover')
   if (hover && Number(id) <=  Number(hover)) {
     element.classList.remove("star-blank");
     element.classList.add("star-filled");
+  } else if (hover && Number(id) >  Number(hover)) {
+    element.classList.remove("star-filled");
+    element.classList.add("star-blank");
   } else if (Number(id) <= rating) {
     element.classList.remove("star-blank");
     element.classList.add("star-filled");
@@ -33,6 +37,7 @@ const setHover = (ratingIndex, hoverId, type) => {
   }
 
   const stars = ratingsHTML[ratingIndex].children;
+  Array.from(stars).forEach(start => console.log('running'))
   for (let i = 0; i < stars.length; i++) {
     updateClass(rating[ratingIndex], i + 1, stars[i], hover[ratingIndex]);
   }
