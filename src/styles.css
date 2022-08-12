@@ -2,6 +2,11 @@ body {
   font-family: sans-serif;
 }
 
+button.star {
+  background-color: transparent;
+  border: none;
+}
+
 .app {
   display: flex;
   flex-direction: row;
