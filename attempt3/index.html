@@ -56,25 +56,21 @@
 
 	const updateClasses = (ratingIdx) => {
 		const htmlRating = document.querySelector(`#rating-${ratingIdx}`);
-		const hoverStatus = hover[ratingIdx];
 		const rating = ratings[ratingIdx];
+		const hoverStatus = hover[ratingIdx];
 		const stars = Array.from(htmlRating.querySelectorAll('.star'));
 		stars.forEach((star, index) => {
 			const position = index + 1;
 if (hoverStatus && Number(hoverStatus) >= Number(position)) {
-	console.log('1')
 	star.classList.add('gold');
 star.classList.remove('gray');
 } else if (hoverStatus && Number(hoverStatus) < Number(position)) {
-	console.log('2')
 	star.classList.add('gray');
 star.classList.remove('gold');
 } else if (Number(rating) < Number(position)) {
-	console.log('3')
 			star.classList.add('gray');
 star.classList.remove('gold');
 } else if (Number(rating) >= Number(position)) {
-	console.log('4')
 	star.classList.add('gold');
 star.classList.remove('gray');
 }	
