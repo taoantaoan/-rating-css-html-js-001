@@ -26,8 +26,8 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 1s;
-      transform-style: preserve-3d;
+      transition: transform 1s;       /* !!XYZ*/
+      transform-style: preserve-3d; /* !!XYZ*/
     }
     .flip-card-container:hover .flip-card {
       transform: rotateY(180deg); /* <=>  rotateY(.5turn) */
@@ -37,8 +37,8 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      -webkit-backface-visibility: hidden; /* Safari */
-      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden; 
+      backface-visibility: hidden; /* !!XYZ*/
       display: flex;
       justify-content: center;
       align-items: center;
