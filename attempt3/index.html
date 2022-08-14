@@ -58,6 +58,8 @@
 		const htmlRating = document.querySelector(`#rating-${ratingIdx}`);
 		const hoverStatus = hover[ratingIdx];
 		const stars = Array.from(htmlRating.querySelectorAll('.star'));
+console.log('ratings', ratings);
+console.log('hover', hover);
 		stars.forEach((star, index) => {
 			const position = index + 1;
 if (hoverStatus && Number(hoverStatus) >= position) {
