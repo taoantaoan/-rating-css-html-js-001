@@ -1,35 +1,15 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>React Pad</title>
-      <style>
-	body {
-	  background-color: red;
-}
-      </style>
-  </head>
-  <body>
-	  <div>
-		test
-  </div>
-  </body>
-  <script>
-	console.log("hello");
-  </script>
-</html>
-
-
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>React Pad</title>
+    <title> Rating widget</title>
       <style>
 	body {
 	  background-color: red;
 }
 
 	button.star {
-	
+		background-color: transparent;
+	border: none;
 }
 
 	.rating {
@@ -46,19 +26,87 @@
 	color: gray;
 }
 
+.gold {
+	color: #f8c003;
+}
+
       </style>
   </head>
   <body>
-	  <div id=”rating-1” class=”rating”>
-		<button data-count=”1” class=”star gray”>&#9733</button>
-<button data-count=”2” class=”star gray”>&#9733</button>
-<button data-count=”3” class=”star gray”>&#9733</button>
-<button data-count=”4” class=”star gray”>&#9733</button>
-<button data-count=”5” class=”star gray”>&#9733</button>
+	  <div id="rating-1" class="rating">
+		<button data-count="1" class="star gray">&#9733</button>
+<button data-count="2" class="star gray">&#9733</button>
+<button data-count="3" class="star gray">&#9733</button>
+<button data-count="4" class="star gray">&#9733</button>
+<button data-count="5" class="star gray">&#9733</button>
   </div>
+  <div id="rating-2" class="rating">
+<button data-count="1" class="star gray">&#9733</button>
+<button data-count="2" class="star gray">&#9733</button>
+<button data-count="3" class="star gray">&#9733</button>
+<button data-count="4" class="star gray">&#9733</button>
+<button data-count="5" class="star gray">&#9733</button>
+  </div>
+
+
   </body>
   <script>
-	console.log(‘hello’);
+	const ratings={};
+	const hover={};
+
+	const updateClasses = (rating, ratingIdx) => {
+		const htmlRating = document.querySelector(`#rating-${ratingIdx}`);
+		const hoverStatus = hover[ratingIdx];
+		const stars = Array.from(htmlRating.querySelectorAll('.star'));
+		stars.forEach((star, index) => {
+			const position = index + 1;
+if (hoverStatus && Number(hoverStatus) >= position) {
+	star.classList.add('gold');
+star.classList.remove('gray');
+} else if (hoverStatus && Number(hoverStatus) < position) {
+	star.classList.add('gray');
+star.classList.remove('gold');
+} else if (Number(rating) < position) {
+			star.classList.add('gray');
+star.classList.remove('gold');
+} else if (Number(rating) >= position) {
+	star.classList.add('gold');
+star.classList.remove('gray');
+}	
+});
+};
+
+	const handleClick = (e, ratingIndx) => {
+		const element = e.target;
+		const rating = element.dataset.count;
+		if (Number(ratings[ratingIndx]) === Number(rating)) {
+	ratings[ratingIndx] = 0;
+} else {
+ratings[ratingIndx] = rating;
+}
+updateClasses(ratings[ratingIndx], ratingIndx);
+};
+
+	const handleHover = (e, ratingIndx, type) => {
+		const element = e.target;
+		const rating = element.dataset.count;
+		if (type === "mouseenter") {
+	hover[ratingIndx] = rating;
+} else {
+hover[ratingIndx] = 0;
+}
+updateClasses(hover[ratingIndx], ratingIndx);
+};
+
+	const htmlRatings = document.querySelectorAll('.rating');
+	htmlRatings.forEach((rating, ratingIdx) => {
+		rating.addEventListener("click", (e) => {handleClick(e, ratingIdx + 1)});
+
+		Array.from(rating.querySelectorAll('.star')).forEach((star) => {
+			star.addEventListener("mouseenter", (e) => {handleHover(e, ratingIdx + 1, "mouseenter")});
+		star.addEventListener("mouseleave", (e) => {handleHover(e, ratingIdx + 1, "mouseleave")});
+});;
+});
   </script>
 </html>
 
