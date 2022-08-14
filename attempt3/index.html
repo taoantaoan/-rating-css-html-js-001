@@ -54,9 +54,10 @@
 	const ratings={};
 	const hover={};
 
-	const updateClasses = (rating, ratingIdx) => {
+	const updateClasses = (ratingIdx) => {
 		const htmlRating = document.querySelector(`#rating-${ratingIdx}`);
 		const hoverStatus = hover[ratingIdx];
+		const rating = ratings[ratingIdx];
 		const stars = Array.from(htmlRating.querySelectorAll('.star'));
 		stars.forEach((star, index) => {
 			const position = index + 1;
@@ -88,7 +89,7 @@ star.classList.remove('gray');
 } else {
 ratings[ratingIndx] = rating;
 }
-updateClasses(ratings[ratingIndx], ratingIndx);
+updateClasses(ratingIndx);
 };
 
 	const handleHover = (e, ratingIndx, type) => {
@@ -99,7 +100,7 @@ updateClasses(ratings[ratingIndx], ratingIndx);
 } else {
 hover[ratingIndx] = 0;
 }
-updateClasses(ratings[ratingIndx], ratingIndx);
+updateClasses(ratingIndx);
 };
 
 	const htmlRatings = document.querySelectorAll('.rating');
