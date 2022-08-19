@@ -30,12 +30,19 @@
     </style>
   </head>
   <body>
+<div class="rating" id="rating-0">
+<button data-count="0" class="star star-gray" type="button" aria-label="1-star rating">&#9733</button>
+<button data-count="1" class="star star-gray" type="button" aria-label="2-star rating">&#9733</button>
+<button data-count="2" class="star star-gray" type="button" aria-label="3-star rating">&#9733</button>
+<button data-count="3" class="star star-gray" type="button" aria-label="4-star rating">&#9733</button>
+<button data-count="4" class="star star-gray" type="button" aria-label="5-star rating">&#9733</button>
+</div>
 <div class="rating" id="rating-1">
-<button data-count="1" class="star star-gray" type="button" aria-label="1-star rating">&#9733</button>
-<button data-count="2" class="star star-gray" type="button" aria-label="2-star rating">&#9733</button>
-<button data-count="3" class="star star-gray" type="button" aria-label="3-star rating">&#9733</button>
-<button data-count="4" class="star star-gray" type="button" aria-label="4-star rating">&#9733</button>
-<button data-count="5" class="star star-gray" type="button" aria-label="5-star rating">&#9733</button>
+<button data-count="0" class="star star-gray" type="button" aria-label="1-star rating">&#9733</button>
+<button data-count="1" class="star star-gray" type="button" aria-label="2-star rating">&#9733</button>
+<button data-count="2" class="star star-gray" type="button" aria-label="3-star rating">&#9733</button>
+<button data-count="3" class="star star-gray" type="button" aria-label="4-star rating">&#9733</button>
+<button data-count="4" class="star star-gray" type="button" aria-label="5-star rating">&#9733</button>
 </div>
 
   </body>
@@ -51,7 +58,7 @@
 		if (target.nodeName === "BUTTON") {
 			const position = target.dataset.count;
 			if (ratings[ratingIndex] === position) {
-				ratings[ratingIndex] = 0;
+				ratings[ratingIndex] = -1;
 } else {
 ratings[ratingIndex] = position;
 }
@@ -60,17 +67,17 @@ ratings[ratingIndex] = position;
 			const ratingsComponent = document.querySelector(`#rating-${ratingIndex}`);
 Array.from(ratingsComponent.querySelectorAll('.star')).forEach((item, index) => {
 	const currentRating = ratings[ratingIndex];
-	if (hover && index + 1<= hover) {
+	if (hover && index <= hover) {
 		item.classList.add('star-gold');
 	item.classList.remove('star-gray');	
-} else if (hover && index + 1 > hover) {
+} else if (hover && index > hover) {
 item.classList.remove('star-gold');
 	item.classList.add('star-gray');
 }
-	else if (index + 1<= currentRating) {
+	else if (index <= currentRating) {
 	item.classList.add('star-gold');
 	item.classList.remove('star-gray');
-} else if (index + 1 > currentRating) {
+} else if (index > currentRating) {
 item.classList.remove('star-gold');
 	item.classList.add('star-gray');
 }
@@ -86,19 +93,19 @@ const updateHover = (e, ratingIndex, type) => {
 	if (type === 'mouseenter') {
 		hovers[ratingIndex] = position;
 } else {
-		hovers[ratingIndex] = false;
+		hovers[ratingIndex] = -1;
 }
 
 updateRating(e, ratingIndex);
 };
 
 	ratingContainers.forEach((rating, ratingIndex) => {
-		rating.addEventListener('click', (e) => {updateRating(e, ratingIndex + 1)});
+		rating.addEventListener('click', (e) => {updateRating(e, ratingIndex)});
 			
 		const stars = rating.querySelectorAll('.star')
 		stars.forEach((star) => {
-			star.addEventListener('mouseenter', (e) => updateHover(e, ratingIndex + 1, 'mouseenter'));
-star.addEventListener('mouseleave', (e) => updateHover(e, ratingIndex + 1,'mouseleave'));
+			star.addEventListener('mouseenter', (e) => updateHover(e, ratingIndex, 'mouseenter'));
+star.addEventListener('mouseleave', (e) => updateHover(e, ratingIndex,'mouseleave'));
 });
 });
 </script>
