@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Rating widget</title>
+    <style>
+	
+	button.star {
+		background-color: transparent;
+		border: none;
+}
+
+	.rating {
+		display: flex;
+		justify-content: space-between;
+		max-width: 250px;
+}
+
+.star {
+	font-size: 2rem;
+}
+
+.star-gray {
+	color: #BABFC4;
+}
+
+.star-gold {
+	color: #f8c003;
+}
+
+    </style>
+  </head>
+  <body>
+<div class="rating" id="rating-1">
+<button data-count="1" class="star star-gray" type="button" aria-label="1-star rating">&#9733</button>
+<button data-count="2" class="star star-gray" type="button" aria-label="2-star rating">&#9733</button>
+<button data-count="3" class="star star-gray" type="button" aria-label="3-star rating">&#9733</button>
+<button data-count="4" class="star star-gray" type="button" aria-label="4-star rating">&#9733</button>
+<button data-count="5" class="star star-gray" type="button" aria-label="5-star rating">&#9733</button>
+</div>
+
+  </body>
+  <script>
+	const ratings = {};
+	const hovers = {};
+
+	const ratingContainers = document.querySelectorAll('.rating');
+	
+	const updateRating = (e, ratingIndex) => {
+		const {target} = e;
+		console.log(target)
+		if (target.nodeName === "BUTTON") {
+			const position = target.dataset.count;
+			if (ratings[ratingIndex] === position) {
+				ratings[ratingIndex] = 0;
+} else {
+ratings[ratingIndex] = position;
+}
+			
+			const hover = hovers[ratingIndex];
+			const ratingsComponent = document.querySelector(`#rating-${ratingIndex}`);
+Array.from(ratingsComponent.querySelectorAll('.star')).forEach((item, index) => {
+	const currentRating = ratings[ratingIndex];
+	if (hover && index + 1<= hover) {
+		item.classList.add('star-gold');
+	item.classList.remove('star-gray');	
+} else if (hover && index + 1 > hover) {
+item.classList.remove('star-gold');
+	item.classList.add('star-gray');
+}
+	else if (index + 1<= currentRating) {
+	item.classList.add('star-gold');
+	item.classList.remove('star-gray');
+} else if (index + 1 > currentRating) {
+item.classList.remove('star-gold');
+	item.classList.add('star-gray');
+}
+
+});
+}
+};
+
+const updateHover = (e, ratingIndex, type) => {
+	const {target} = e;
+	const position = target.dataset.count;
+
+	if (type === 'mouseenter') {
+		hovers[ratingIndex] = position;
+} else {
+		hovers[ratingIndex] = false;
+}
+
+updateRating(e, ratingIndex);
+};
+
+	ratingContainers.forEach((rating, ratingIndex) => {
+		rating.addEventListener('click', (e) => {updateRating(e, ratingIndex + 1)});
+			
+		const stars = rating.querySelectorAll('.star')
+		stars.forEach((star) => {
+			star.addEventListener('mouseenter', (e) => updateHover(e, ratingIndex + 1, 'mouseenter'));
+star.addEventListener('mouseleave', (e) => updateHover(e, ratingIndex + 1,'mouseleave'));
+});
+});
+</script>
+</html>
+
+
