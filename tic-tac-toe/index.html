@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Rating widget</title>
+    <style>
+	button.cell {
+		border: none;
+}
+	#board {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-gap: 10px;
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.cell {
+	background-color: #f6a41d;
+	border-radius: 4px;
+	width: 200px;
+	height: 200px;
+		display: flex;
+	justify-content: center;
+	align-items: center;
+}
+    </style>
+  </head>
+  <body>
+
+<div class="container">
+<div id="board">
+	<button data-cell="0" class="cell">-</button>
+	<button data-cell="1" class="cell">-</button>
+<button data-cell="2" class="cell">-</button>
+<button data-cell="3" class="cell">-</button>
+<button data-cell="4" class="cell">-</button>
+<button data-cell="5" class="cell">-</button>
+<button data-cell="6" class="cell">-</button>
+<button data-cell="7" class="cell">-</button>
+<button data-cell="8" class="cell">-</button>
+</div>
+</div>
+
+
+  </body>
+  <script>
+const board = Array(9).fill(null);
+let foundWinner = false;
+
+const checkForWinner = (symb) => {
+  // rows
+  const rowWinner = (board[0] === board[1] && board[1] === board[2] && board[0] !== null||
+  board[3] === board[4] && board[4] === board[5] && board[3] !== null|| 
+  board[6] === board[7] && board[7] === board[8] && board[6] !== null);
+
+  const columnWinner = (board[0] === board[3] && board[3] === board[6] && board[0] !== null ||
+  board[1] === board[4] && board[4] === board[7] && board[1] !== null || 
+  board[2] === board[5] && board[5] === board[8] && board[2] !== null);
+  
+  // diagonal
+  const diagonalWinner = (board[0] === board[4] && board[4] === board[8] && board[0] !== null ||
+  board[2] === board[4] && board[4] === board[6] && board[2] !== null);
+
+  if (!foundWinner && (rowWinner || columnWinner || diagonalWinner)) {
+    alert(`${symb} is the winner`);
+    foundWinner = true;
+  }
+  // diagonal
+  /*
+   0 1 2
+   3 4 5
+   6 7 8
+  */ 
+  board[0] === board[3] && board[3] === board[6]
+};
+
+const updateCell = (e) => {
+	const {target} = e;
+	const value = target.innerHTML;
+let newValue;
+	let index = target.dataset.cell;
+	value === 'X' ? newValue = 'O' : newValue = 'X';
+	target.innerHTML = newValue;
+	board[index] = newValue;
+	// check for winner;
+  checkForWinner(newValue);
+};
+
+const boardDiv = document.querySelector('#board');
+boardDiv.addEventListener('click', (e) => {updateCell(e)});
+</script>
+</html>
+
+
