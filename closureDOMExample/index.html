@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Closure && Dom</title>
+	<meta charset="UTF-8" />
+  <style>
+    body {
+      font-size: 8px;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+	<div>
+    <h1>Closure && Dom Maniptulation</h1>
+    <h2>Was</h2>
+    <p>here</p>
+    <div id="button-div">
+      <button role="button" aria-lable="change to size 8" id="size-8">8</button>
+      <button role="button" aria-lable="change to size 16" id="size-16">16</button>
+      <button role="button" aria-lable="change to size 32" id="size-32">32</button>
+    </div>
+  </div>
+	<script>
+  const makeSizer = (size) => {
+    return () => {
+      // document.body.style.fontSize = `${size}px`;
+      document.body.style.fontSize = size + 'px';
+      console.log('size: ', size);
+    };
+  };
+
+  // function makeSizer (size) {
+  //   return function() {
+  //     // document.body.style.fontSize = `${size}px`;
+  //     document.body.style.fontSize = size + 'px';
+  //     console.log('size: ', size);
+  //   };
+  // };
+
+  const size8 = makeSizer(8);
+  const size16 = makeSizer(16);
+  const size32 = makeSizer(32);
+
+  document.querySelector('#size-8').onclick = size8;
+  // document.querySelector('#size-16').onClick = size16;
+  document.getElementById('size-16').onclick = size16;
+  document.querySelector('#size-32').onclick = size32;
+
+  console.log('document ready')
+	</script>
+</body>
+
+</html>
