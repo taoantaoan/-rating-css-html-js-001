@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Template</title>
+	<meta charset="UTF-8" />
+  <style>
+  </style>
+</head>
+
+<body>
+	<div id="l1">
+    <div id="l2">
+      <div id="l3">
+        <div id="l4">
+          l-child 
+        </div>
+      </div>
+    </div>
+  </div>
+	<div id="x1">
+    <div id="x2">
+      <div id="x3">
+        <div id="x4">
+          x-child
+        </div>
+      </div>
+    </div>
+  </div>
+	<script>
+    const isDescendant = (parent, child) => {
+      while (child.parentNode) {
+        if (child.parentNode === parent) {
+          return true;
+        } else {
+          child = child.parentNode;
+        }
+      }
+      return false;
+    };
+
+    const isDescendantRecursive = (parent, child) => {
+      if (!child.parentNode) return false;
+      if (child.parentNode === parent) return true;
+      isDescendantRecursive(parent, child.parentNode);
+    };
+
+    const lParent = document.querySelector('#l1');
+    const xParent = document.querySelector('#x1');
+    const lChild = document.querySelector('#l4');
+    const xChild = document.querySelector('#x4');
+
+    console.log('test1----------');
+    console.log(isDescendantRecursive(lParent, lChild)); // true
+    console.log('test2----------');
+    console.log(isDescendantRecursive(xParent, xChild)); // true
+    console.log('test3----------');
+    console.log(isDescendantRecursive(lParent, xChild)); // false
+    console.log('test4----------');
+    console.log(isDescendantRecursive(xParent, lChild)); // false
+	</script>
+</body>
+
+</html>
