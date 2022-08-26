@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Template</title>
+	<meta charset="UTF-8" />
+  <style>
+  </style>
+</head>
+
+<body>
+	<div id="l1">
+    1
+    <div id="l2">
+      2
+      <div id="l3">
+        3
+        <div id="l4">
+          4
+        </div>
+      </div>
+    </div>
+  </div>
+	<div id="x1">
+    5
+    <div id="x2">
+      6
+      <div id="x3">
+        7
+        <div id="x4">
+         8
+        </div>
+      </div>
+    </div>
+  </div>
+	<script>
+    const getAllText = (node) => {
+      const allText = [];
+
+      const getNodeText = (node) => {
+        if (node && node.childNodes && node.childNodes.length) {
+          node.childNodes.forEach((item) => {
+            getNodeText(item);
+          })
+        } else {
+          allText.push(node.nodeValue)
+        }
+      };
+
+      getNodeText(node);
+      const result = allText.join(', ');
+      console.log(result);
+      return result;
+    };
+
+    console.log('test1----------');
+    console.log(document.body.innerText); // true
+    console.log('test2----------');
+    getAllText(document.body);
+	</script>
+</body>
+
+</html>
