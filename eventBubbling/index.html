@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Template</title>
+	<meta charset="UTF-8" />
+  <style>
+    #grandparent {
+      background-color: red;
+      width: 1000px;
+      height: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #parent {
+      background-color: blue;
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #start {
+      background-color: black;
+      color: white;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+	<div>
+    <div id='grandparent'>
+      <div id='parent'>
+        <div id='start'>
+          Start
+        </div>
+      </div>
+    </div>    
+  </div>
+	<script>
+    const start = document.querySelector('#start');
+    const parent = document.querySelector('#parent');
+    const grandparent = document.querySelector('#grandparent');
+    // start.addEventListener('click', () => {
+    //   alert('start clicked');
+    // })
+    // parent.addEventListener('click', () => {
+    //   alert('parent clicked');
+    // })
+    // grandparent.addEventListener('click', () => {
+    //   alert('grandparent clicked');
+    // })
+    // document.addEventListener('click', () => {
+    //   alert('document clicked');
+    // })
+    // window.addEventListener('click', () => {
+    //   alert('window clicked');
+    // })
+	</script>
+</body>
+
+</html>
