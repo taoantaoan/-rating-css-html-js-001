@@ -34,12 +34,44 @@
     </div>
   </div>
 	<script>
-    
+    const getAllText = (node) => {
+      const allText = [];
+
+      // getNodeText
+      const getNodeText = (node) => {
+        if (node && node.children && node.children.length) {
+          console.log(node.children)
+          console.log(node.childNodes)
+          // node.children.forEach((child) => {
+          //   if (child.nodeName.toLowerCase() !== 'script') {
+          //     getNodeText(child);
+          //   }
+          // });
+          for (let i = 0; i < node.children.length; i++) {
+            const child = node.children[i];
+            if (child.nodeName.toLowerCase() !== 'script') {
+              getNodeText(child);
+            }
+          }
+        } else {
+          // const cleanText = node.nodeValue.replace(/\s+/, '')
+          // if (cleanText) allText.push(node.nodeValue)
+          allText.push(node.innerText)
+        }
+        // console.log(node.children);
+        console.log('-----------');
+        // console.log(node.children.forEach((child) => console.log(child.nodeName)));
+        console.log(allText)
+      };
+
+      getNodeText(node);
+      // return join of allText
+    };
 
     console.log('test1----------');
 
     console.log('test2----------');
-    console.log(document.body);
+    console.log(getAllText(document.body));
 
 	</script>
 </body>
