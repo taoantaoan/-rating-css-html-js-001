@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Template</title>
+	<meta charset="UTF-8" />
+  <style>
+    #grandparent {
+      background-color: red;
+      width: 1000px;
+      height: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #parent {
+      background-color: blue;
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #start {
+      background-color: black;
+      border: solid 1px white;
+      padding: 10px 5px;
+      margin: 25px;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .white {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+	<div>
+    <div id='grandparent'>
+      <div id='parent'>
+        <div id='start'>
+          Start
+        </div>
+      </div>
+    </div>    
+  </div>
+	<script>
+    const start = document.querySelector('#start');
+    const parent = document.querySelector('#parent');
+    const grandparent = document.querySelector('#grandparent');
+    
+    console.log(start.clientHeight);
+    console.log(start.clientWidth);
+    console.log(start.classList)
+    // start.style.height = '200px';
+    // start.style.color = 'red';
+    start.classList.add('white')
+    console.log(start.clientHeight);
+    const end = document.createElement('div');
+    end.innerHTML = "End";
+    end.classList.add("white");
+    end.style.width = "100px";
+    end.style.height = "100px";
+    end.style.backgroundColor = "gray";
+    start.parentElement.append(end);
+	</script>
+</body>
+
+</html>
