@@ -10,25 +10,25 @@
 
 <body>
 	<div id="l1">
-    1
+    <span>1</span>
     <div id="l2">
-      2
+      <span>2</span>
       <div id="l3">
-        3
+        <span>3</span>
         <div id="l4">
-          4
+          <span>4</span>
         </div>
       </div>
     </div>
   </div>
 	<div id="x1">
-    5
+    <span>5</span>
     <div id="x2">
-      6
+      <span>6</span>
       <div id="x3">
-        7
+        <span>7</span>
         <div id="x4">
-         8
+          <span>8</span>
         </div>
       </div>
     </div>
@@ -43,19 +43,22 @@
             getNodeText(item);
           })
         } else {
-          allText.push(node.nodeValue)
+          const cleanText = node.nodeValue.replace(/\s+/, '');
+          console.log(node.nodeType)
+          if (cleanText) allText.push(node.nodeValue)
         }
       };
 
       getNodeText(node);
+      console.log(allText);
       const result = allText.join(', ');
-      console.log(result);
       return result;
     };
 
     console.log('test1----------');
     console.log(document.body.innerText); // true
     console.log('test2----------');
+    console.log(document.body);
     getAllText(document.body);
 	</script>
 </body>
