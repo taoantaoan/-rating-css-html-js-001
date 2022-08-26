@@ -38,6 +38,7 @@
       const allText = [];
 
       const getNodeText = (node) => {
+        console.log(node.childNodes)
         if (node && node.childNodes && node.childNodes.length) {
           node.childNodes.forEach((item) => {
             getNodeText(item);
