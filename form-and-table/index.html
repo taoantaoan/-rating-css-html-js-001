@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Form and Table</title>
+	<meta charset="UTF-8" />
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .small-container {
+      height: 30vh;
+    }
+    .engineering-form 
+      label {
+        display: flex;
+        justify-content: space-between;
+      }  
+
+    .engineering-form input {
+      margin-left: 2em;
+    }
+    
+    .justify-center { 
+      display: flex;
+      justify-content: center;
+    }
+
+    .table-header {
+      min-width: 6rem;
+    }
+    
+  </style>
+</head>
+
+<body>
+	<div>
+    <div class="container small-container engineering-form">
+      <h1>Timesheet Entry</h1>
+      <form id="engineering-time-form">
+        <label for="entry-date">Date worked:
+          <input type="date" id="entry-date" name="entry-date" value="">
+        </label><br>
+        <label for="fname">First name:
+          <input type="text" id="fname" name="fname" value="">
+        </label><br>
+        <label for="lname">Last name:
+          <input type="text" id="lname" name="lname" value="">
+        </label><br>
+        <label for="role">Role: 
+          <input type="text" id="role" name="role" value="">
+        </label><br>
+        <label for="hours-worked">Hours worked:
+          <input type="number" id="hours-worked" name="hours-worked" value="">
+        </label><br>
+        <div class="justify-center">
+          <button role="submit">Submit Time</button>
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <h1>Engineering Timesheet</h1>
+      <table id="engineering-table">
+        <thead>
+          <tr>
+            <th class="table-header">Date</th>
+            <th class="table-header">Last Name</th>
+            <th class="table-header">First Name</th>
+            <th class="table-header">Role</th>
+            <th class="table-header">Hours</th>
+            <th class="table-header">Delete Row</th>
+          </tr>
+        </thead>
+        <tbody id="engineering-table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+	<script>
+    const form = document.querySelector('#engineering-time-form');
+    
+    const createTd = (item, tr) => {
+      const td = document.createElement("td");
+      td.innerHTML = item;
+      tr.appendChild(td);
+    };
+
+    const removeRow = (node) => {
+      let cur = node;
+      while (cur) {
+        console.log(cur);
+        if (cur.nodeName.toLowerCase() === 'tr') {
+          cur.remove();
+          return;
+        }
+        cur = cur.parentElement;
+      }
+    }
+    
+    const addEntry = (e) => {
+      e.preventDefault();
+      const entryDate = document.querySelector('#entry-date').value;
+      const firstName = document.querySelector('#fname').value;
+      const lastName = document.querySelector('#lname').value;
+      const role = document.querySelector('#role').value;
+      const hoursWorked = document.querySelector('#hours-worked').value;
+      const tableBody = document.querySelector('#engineering-table-body');
+  
+      // create elements
+      const tr = document.createElement("tr");
+      
+      createTd(entryDate, tr);
+      createTd(firstName, tr);
+      createTd(lastName, tr);
+      createTd(role, tr);
+      createTd(hoursWorked, tr);
+      
+      const deleteButton = document.createElement("button");
+      deleteButton.innerHTML = 	'delete me';
+      deleteButton.addEventListener('click', () => {removeRow(deleteButton)});
+  
+      const td = document.createElement("td");
+      td.appendChild(deleteButton);
+      tr.appendChild(td);
+      
+      tableBody.appendChild(tr);
+    };
+    form.addEventListener('submit', addEntry);
+	</script>
+</body>
+
+</html>
