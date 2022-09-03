@@ -79,6 +79,7 @@
       const sibling = target.nextElementSibling || target.previousElementSibling;
       sibling.classList.remove('display-none');
     };
+    
     const fronts = document.querySelectorAll('.flash-card-front');
     Array.from(fronts).forEach((front) => {
       front.addEventListener('click', hideAndFlip);
