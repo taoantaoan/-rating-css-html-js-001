@@ -4,17 +4,151 @@
 <html>
 
 <head>
-	<title>Template</title>
+	<title>Engineering Hours</title>
 	<meta charset="UTF-8" />
   <style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+}
+label {
+	display: flex;
+	justify-content: space-between;
+margin-bottom: 2rem;
+}
+
+input {
+	margin-left: 2rem;
+}
+
+th {
+	min-width: 6rem;
+	text-align: center;
+}
+
+.eng-form-container {
+	min-height: 33vh;
+}
+
+.align-right {
+	display: flex;
+	justify-content: end;
+}
   </style>
 </head>
 
 <body>
 	<div>
+    <div class="container eng-form-container">
+      <h1>Timesheet</h1>
+      <h3>Enter your worked</h3>
+      <form id="eng-form-form">
+        <label for="date-worked"> Date worked
+          <input type="date" id="date-worked" value="">
+        </label>
+<label for="first-name"> First name
+<input type="text" id="first-name" value="">
+</label>
+<label for="last-name"> Last name
+<input type="text" id="last-name" value="">
+</label>
+<label for="role"> Role
+<input type="text" id="role" value="">
+</label>
+<label for="hours-worked"> Hours worked
+<input type="number" id="hours-worked" value="">
+</label>
+<div class="align-right">
+	<button type="submit">Submit time</button>
+</div>
+      </form>
+    </div>
+    <div class="container eng-table">
+<h1>Employe Hours</h1>
+
+<table>
+<theader>
+	<tr>
+		<th> Date Worked</th>
+		<th> First Name</th>
+		<th> Last Name</th>
+		<th> Role</th>
+		<th> Hours Worked</th>
+		<th> Delete Row</th>
+<tr>
+</theader>
+<tbody id="eng-table-body"></body>
+<table>
+
+    </div>
   </div>
 	<script>
+	const addTd = (item, tr) => {
+		// create td 
+		const td = document.createElement('td');
+	// add value to tr
+	td.innerHTML = item;
+	// add td to tr
+	tr.appendChild(td);
+};
+
+const deleteRow = (node) => {
+	// node.NodeName !== tr
+	let current = node;
+	console.log(current.nodeName);
+	while (current.nodeName.toLowerCase() !== 'tr') {
+		current = current.parentElement;
+}
+	
+	// remove
+	current.remove();
+};
+
+	const addButton = (item, tr) => {
+		// create td 
+		const td = document.createElement('button');
+	// add value to tr
+	td.innerHTML = item;
+	// add event listener
+	td.addEventListener('click', () => {deleteRow(td)});
+	// add td to tr
+	tr.appendChild(td);
+};
+
+
+	const addRow = (e) => {
+		e.preventDefault();
+		console.log(e);
+
+		const tbody = document.querySelector('#eng-table-body');
+	
+	const dateWorked = document.querySelector('#date-worked').value;
+	const firstName = document.querySelector('#first-name').value;
+	const lastName = document.querySelector('#last-name').value;
+	const role = document.querySelector('#role').value;
+	const hoursWorked = document.querySelector('#hours-worked').value;
+
+	const tr = document.createElement('tr');
+	addTd(dateWorked, tr);
+	addTd(firstName, tr);
+	addTd(lastName, tr);
+	addTd(role, tr);
+	addTd(hoursWorked, tr);
+	addButton('Delete row', tr);
+
+	// add tr to tableBody
+	tbody.appendChild(tr);
+}
+
+	const engForm = document.querySelector('#eng-form-form');
+	console.log(engForm);
+engForm.addEventListener('submit', addRow);
+
 	</script>
 </body>
 
 </html>
+
+
