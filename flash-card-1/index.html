@@ -1,0 +1,94 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Flash card</title>
+	<meta charset="UTF-8" />
+  <style>
+    .container {
+      height: 100vh;
+    }
+
+    .flash-card {
+      height: 500px;
+      width: 250px;
+      color: white
+    }
+
+    .flash-card-front {
+      height: 100%;
+      width: 100%;
+      background-color: red;
+      border-radius: 5px;
+    }
+    .flash-card-back {
+      height: 100%;
+      width: 100%;
+      background-color: blue;
+      border-radius: 5px;
+    }
+
+    .center-all {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .display-none {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <div class="container center-all">
+        <div class="flash-card">
+          <div class="flash-card-front center-all">
+            <span>front</span>
+          </div>
+          <div class="flash-card-back center-all display-none">
+            <span>back</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container center-all">
+        <div class="flash-card">
+          <div class="flash-card-front center-all">
+            <span>front</span>
+          </div>
+          <div class="flash-card-back center-all display-none">
+            <span>back</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	<div>
+	<script>
+
+    const hideAndFlip = (e) => {
+      const {target} = e;
+      target.classList.add('display-none');
+      
+      const sibling = target.nextElementSibling || target.previousElementSibling;
+      sibling.classList.remove('display-none');
+    };
+    const fronts = document.querySelectorAll('.flash-card-front');
+    Array.from(fronts).forEach((front) => {
+      front.addEventListener('click', hideAndFlip);
+    });
+    
+    const backs = document.querySelectorAll('.flash-card-back');
+    Array.from(backs).forEach((back) => {
+      back.addEventListener('click', hideAndFlip);
+    });
+	</script>
+</body>
+
+</html>
