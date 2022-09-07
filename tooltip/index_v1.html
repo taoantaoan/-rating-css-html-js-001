@@ -22,29 +22,17 @@
 }
 
 .tooltip:before {
-  --scale: 0;
   content: attr(data-text); /* here's the magic */
   position:absolute;
   
-  /* vertically center */
   bottom:100%;
-  /* left: 0; */
-  /* transform: translateX(50%);
-  transition: 150ms transform; */
-  /* transform-origin: bottom center; */
-  /* transform:translateX(50%); */
-  
-  /* move to right */
-  /* left:100%; */
-  margin-bottom:15px; 
-
   left: 0;
   right: 0;
-  text-align: center;
   
   /* basic styles */
-  width:200px;
-  padding:10px;
+  width: 60%;
+  padding:10px 0px;
+  margin:0 20% 10px 20% ;
   border-radius:10px;
   background:#000;
   color: #fff;
@@ -61,7 +49,7 @@
 
 <body>
   <div class="container">
-    <div class="tooltip top" data-text="Tool tip text"> Hover over me there is a crazy large amount of text
+    <div class="tooltip top" data-text="Tool tip text Tool tip text Tool tip text"> Hover over me there is a crazy large amount of text
     </div>
   </div>
 	<script>
