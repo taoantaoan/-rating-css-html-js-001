@@ -7,11 +7,8 @@
 	<title>Template</title>
 	<meta charset="UTF-8" />
   <style>
-    *, *::before, *::after {
-  box-sizing: border-box
-}
 
-body {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,94 +16,127 @@ body {
   margin: 0;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-image: url('https://source.unsplash.com/nKC772R_qog');
-  background-size: cover;
-  background-position: center;
-  position: relative;
+.tooltip {
+  position:relative; /* making the .tooltip span a container for the tooltip text */
+  border-bottom:1px dashed #000; /* little indicater to indicate it's hoverable */
 }
 
-.avatar::before,
-.avatar::after {
-  --scale: 0;
-  --arrow-size: 20px;
-  --tooltip-color: green;
+.tooltip.left:before {
+  /* reset defaults */
+  left:initial;
+  margin:initial;
 
-  position: absolute;
-  top: -.25rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
-  transition: 150ms transform;
-  transform-origin: bottom center;
+  /* set new values */
+  right:100%;
+  margin-right:15px;
 }
 
-.avatar::before {
-  --translate-y: calc(-100% - var(--arrow-size));
+.tooltip.top:before {
+  content: "";
+  position:absolute;
+  /* reset defaults */
+  top:initial;
+  margin:initial;
+  right:0;
+  left:0;
+  transform:translateX(-25%);
 
-  content: attr(data-tooltip);
-  color: white;
-  padding: .5rem;
-  border-radius: .3rem;
-  text-align: center;
-  width: max-content;
-  max-width: 100%;
-  background: var(--tooltip-color);
+  width:200px;
+  padding:10px;
+  border-radius:10px;
+  background:#000;
+  color: #fff;
+  text-align:center;
+
+  /* set new values */
+  bottom:100%;
+  margin-bottom:-5px;
 }
 
-.avatar:hover::before,
-.avatar:hover::after {
-  --scale: 1;
+.tooltip.top:after {
+  content: "";
+  position:absolute;
+  
+  /* position tooltip correctly */
+  left:50%;
+  margin-bottom:-25px;
+ 
+  /* vertically center */
+  /* top: 100%; */
+  /* transform:translateY(-50%); */
+ 
+  /* the arrow */
+  border:10px solid #000;
+  border-color:  transparent transparent transparent ;
+  
+  opacity:0;
+  transition:.3s;
 }
 
-.avatar::after {
-  --translate-y: calc(-1 * var(--arrow-size));
+.xtooltip:before {
+  content: attr(data-text); /* here's the magic */
+  position:absolute;
+  
+  /* vertically center */
+  top:50%;
+  /* transform:translateY(-50%); */
+  
+  /* move to right */
+  left:100%;
+  margin-left:15px; /* and add a small left margin */
+  
+  /* basic styles */
+  width:200px;
+  padding:10px;
+  border-radius:10px;
+  background:#000;
+  color: #fff;
+  text-align:center;
 
-  content: '';
-  border: var(--arrow-size) solid transparent;
-  border-top-color: var(--tooltip-color);
-  transform-origin: top center;
+  opacity:0;
+  transition:.3s opacity;  
+}
+
+.tooltip:hover:before {
+  display:block;
+  opacity:1;
+}
+
+.xtooltip:after {
+  content: "";
+  position:absolute;
+  
+  /* position tooltip correctly */
+  left:100%;
+  margin-left:-5px;
+ 
+  /* vertically center */
+  top:50%;
+  /* transform:translateY(-50%); */
+ 
+  /* the arrow */
+  border:10px solid #000;
+  border-color: transparent black transparent transparent;
+  
+  opacity:0;
+  transition:.3s;
+}
+.tooltip:hover:after {
+  opacity:1;
+}
+.tooltip:hover:before, .tooltip:hover:after {
+  display:block;
 }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h2>Tooltip</h2>
-    <p>Move the mouse over the text below:</p>
-  
-    <div class="avatar">Hover over me
-      <span class="tooltiptext">Tooltip text</span>
+    <div class="tooltip top" data-text="Tool tip text"> Hover over me
     </div>
   </div>
 	<script>
-    document.onmouseup = () => {
-  const selection = document.getSelection();
-  console.log(selection);
-  const anchorNode = selection.anchorNode;
-  const focusNode = selection.focusNode;
 
-  if (anchorNode != focusNode) {
-    // Cross-paragraph selection
-    return;
-  }
-  
-  const selectedText = anchorNode.data.substring(selection.anchorOffset, selection.focusOffset);
-
-  const rangeRect = selection.getRangeAt(0).getClientRects()[0];
-
-  const dot = document.createElement("div");
-  dot.style.width = "5px";
-  dot.style.height = "5px";
-  dot.style.background = "red";
-  dot.style.position = "absolute";
-  // Middle
-  dot.style.left = `${rangeRect.x + (rangeRect.width/2)}px`;
-  dot.style.top = `${rangeRect.y}px`;
-  document.body.appendChild(dot);
-}
 	</script>
 </body>
 
