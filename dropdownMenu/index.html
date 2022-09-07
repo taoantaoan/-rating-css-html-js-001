@@ -7,18 +7,24 @@
 	<title>Template</title>
 	<meta charset="UTF-8" />
   <style>
-    .menu {
+   body {
+  background: blue;
+}
+
+.menu {
+  margin: 0 auto;
+  width: 40rem;
   background: #F7F6F5;
   border-top: 1px solid #CFCFCF;
 }
 
-.menu__item {
+.menu__main__item {
   display: inline-block;
   padding: 0.5rem 2rem;
   border-bottom: 1px solid #CFCFCF;
 }
 
-.menu__item:hover {
+.menu__main__item:hover {
   background: white;
   border-bottom: none;
   border-right: 1px solid #CFCFCF;
@@ -26,13 +32,13 @@
   margin: 0 -1px;
 }
 
-.menu__item--current .menu__item__link {
+.menu__main__item--current .menu__main__item__link {
   color: #333333;
   border-bottom: 2px solid #333;
   padding-bottom: 0.3rem;
 }
 
-.menu__item__link {
+.menu__main__item__link {
   text-decoration: none;
   color: #555;
   font-family: Roboto;
@@ -40,25 +46,38 @@
   font-weight: 800;
 }
 
-.menu__item__link:hover {
+.menu__main__item__link:hover {
   text-decoration: underline;
   color: #1C60BB;
 }
+
+.menu__sub {
+  width: 40rem;
+  height: 10rem;
+  background: red;
+}
   </style>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
 </head>
 
 <body>
-	<div class="menu">
-    <div class="menu__item menu__item--current menu__item--home">
-      <a class="menu__item__link" href="#">Home</a>
-    </div><div class="menu__item menu__item--motors">
-      <a class="menu__item__link" href="#">Motors</a>
-    </div><div class="menu__item menu__item--fashion">
-      <a class="menu__item__link" href="#">Fashion</a>
-    </div><div class="menu__item menu__item--electronics">
-      <a class="menu__item__link" href="#">Electronics</a>
-    </div><div class="menu__item menu__item--toys">
-      <a class="menu__item__link" href="#">Toys</a>
+  <div class="menu">
+    <div class="menu__main">
+      <div class="menu__main__item menu__main__item--current menu__main__item--home">
+        <a class="menu__main__item__link" href="#">Home</a>
+      </div><div class="menu__main__item menu__main__item--motors">
+        <a class="menu__main__item__link" href="#">Motors</a>
+      </div><div class="menu__main__item menu__main__item--fashion">
+        <a class="menu__main__item__link" href="#">Fashion</a>
+      </div><div class="menu__main__item menu__main__item--electronics">
+        <a class="menu__main__item__link" href="#">Electronics</a>
+      </div><div class="menu__main__item menu__main__item--toys">
+        <a class="menu__main__item__link" href="#">Toys</a>
+      </div>
+    </div>
+    <div class="menu__sub">
     </div>
   </div>
 	<script>
