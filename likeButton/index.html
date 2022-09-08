@@ -6,15 +6,91 @@
 <head>
 	<title>Like Button</title>
 	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
+
+	button.like-button__thumb {
+		background-color: transparent;
+		border: none;
+}
+
+	.like-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+}
+
+.like-button__thumb.unfilled {
+	color: gray;
+	
+}
+
+.like-button__thumb.filled {
+	color: blue;
+	
+}
+
+.like-button__count {
+	margin-left: 0.25rem;
+}
+
+.add-color {
+  color: red;
+}
+
+
   </style>
 </head>
 
 <body>
-	<div>
-  </div>
+	<div class="container">
+		<div id="like-button-0" class="like-button">
+			<button class="like-button__thumb unfilled fa" role="button" aria-label="like-button">
+        &#xf087;
+</button>
+
+<div class="like-button__count">
+				0 
+</div>
+
+
+</div>
+
+</div>
 	<script>
+
+	const likeButtonStates = {};
+	
+	const updateButton = (e, index) => {
+		const {target} = e;
+    e.preventDefault();
+		let state = likeButtonStates[index] || 0;
+		
+		// update color
+		if (target.classList.contains('unfilled')) {
+			target.classList.add('filled');
+      target.classList.remove('unfilled');
+      state++;
+      likeButtonStates[index] = state;
+    } else {
+          target.classList.remove('filled');
+          target.classList.add('unfilled');
+          state--;
+        likeButtonStates[index] = state;
+    }
+
+		// update count
+		const countNode = target.nextElementSibling;
+    countNode.innerHTML = state;
+};
+
+	const likeButtons = document.querySelectorAll('.like-button');
+	likeButtons.forEach((button, idx) => {
+		addEventListener('click',(e) => {updateButton(e, idx)});
+});
+
 	</script>
 </body>
 
 </html>
+
