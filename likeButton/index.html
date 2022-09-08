@@ -47,14 +47,33 @@
 		<div id="like-button-0" class="like-button">
 			<button class="like-button__thumb unfilled fa" role="button" aria-label="like-button">
         &#xf087;
-</button>
+      </button>
 
-<div class="like-button__count">
-				0 
-</div>
+      <div class="like-button__count">
+              0 
+      </div>
 
 
-</div>
+    </div>
+    <div id="like-button-1" class="like-button">
+      <button class="like-button__thumb unfilled fa" role="button" aria-label="like-button">
+          &#xf087;
+      </button>
+
+      <div class="like-button__count">
+              0 
+      </div>
+
+
+    </div>
+    <div id="like-button-2" class="like-button">
+      <button class="like-button__thumb unfilled fa" role="button" aria-label="like-button">
+        &#xf087;
+      </button>
+      <div class="like-button__count">
+        0 
+      </div>
+    </div>
 
 </div>
 	<script>
@@ -64,6 +83,8 @@
 	const updateButton = (e, index) => {
 		const {target} = e;
     e.preventDefault();
+    console.log(index)
+    console.log(target)
 		let state = likeButtonStates[index] || 0;
 		
 		// update color
@@ -81,12 +102,12 @@
 
 		// update count
 		const countNode = target.nextElementSibling;
-    countNode.innerHTML = state;
+    countNode.innerHTML = likeButtonStates[index];
 };
 
 	const likeButtons = document.querySelectorAll('.like-button');
 	likeButtons.forEach((button, idx) => {
-		addEventListener('click',(e) => {updateButton(e, idx)});
+		button.addEventListener('click',(e) => {updateButton(e, idx)});
 });
 
 	</script>
