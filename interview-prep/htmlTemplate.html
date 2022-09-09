@@ -7,14 +7,117 @@
 	<title>Ratings component</title>
 	<meta charset="UTF-8" />
   <style>
+button.star {
+	background-color: transparent;
+	border: none;
+}
+	
+.rating {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 300px;
+}
+
+.star {
+	font-size: 3rem;
+}
+
+.star-empty {
+	color: gray;
+}
+
+.star-filled {
+	color: #f8c003;
+}
   </style>
 </head>
 
 <body>
-	<div>
-  </div>
-	<script>
+	<div id="ratings-component-0" class="rating">
+		<button data-star="0" class="star star-empty" aria-label="star rating of 1">&#9733;</button>
+		<button data-star="1" class="star star-empty" aria-label="star rating of 2">&#9733;</button>
+		<button data-star="2" class="star star-empty" aria-label="star rating of 3">&#9733;</button>
+		<button data-star="3" class="star star-empty" aria-label="star rating of 4">&#9733;</button>
+		<button data-star="4" class="star star-empty" aria-label="star rating of 5">&#9733;</button>
+</div>
+
+	<div id="ratings-component-1" class="rating">
+		<button data-star="0" class="star star-empty" aria-label="star rating of 1">&#9733;</button>
+		<button data-star="1" class="star star-empty" aria-label="star rating of 2">&#9733;</button>
+		<button data-star="2" class="star star-empty" aria-label="star rating of 3">&#9733;</button>
+		<button data-star="3" class="star star-empty" aria-label="star rating of 4">&#9733;</button>
+		<button data-star="4" class="star star-empty" aria-label="star rating of 5">&#9733;</button>
+</div>
+	
+<script>
+		const ratings = {};
+		const hovers = {};
+
+		const updateRatings = (ratingIndx) => {
+			const hover = hovers[ratingIndx];
+			const rating = document.querySelector(`#ratings-component-${ratingIndx}`);
+			const stars = rating.querySelectorAll('.star');
+
+			Array.from(stars).forEach((star, position) => {
+				if ( hover && hover >= position) {
+				star.classList.add('star-filled');
+					star.classList.remove('star-empty');
+} else if (hover && position > hover) {
+					star.classList.remove('star-filled');
+					star.classList.add('star-empty');
+} else if (ratings[ratingIndx] >= position) {
+					star.classList.add('star-filled');
+					star.classList.remove('star-empty');
+} else {
+star.classList.add('star-empty');
+					star.classList.remove('star-filled');
+}
+});
+};
+
+const handleClick = (e, ratingIndx) => {
+			const {target} = e;
+			const targetRating = target.dataset.star;
+
+
+if (ratings[ratingIndx] === targetRating) {
+				ratings[ratingIndx] = -1;
+} else {
+ratings[ratingIndx] = targetRating;
+}
+	updateRatings(ratingIndx);
+}
+
+const handleHover = (e, ratingsIndex, eventType) => {
+	const {target} = e;
+			const targetHover = target.dataset.star;
+			if (eventType === 'mouseenter') {
+				hovers[ratingsIndex] = targetHover;
+} else if (eventType === 'mouseleave'){
+				hovers[ratingsIndex] =  false;
+} else {
+	return;
+}
+// updateRatings
+updateRatings(ratingsIndex);
+};
+
+		const allRatings = document.querySelectorAll('.rating');
+
+		allRatings.forEach ((rating, ratingsIndex) => {
+			rating.addEventListener('click', (e) => {handleClick(e, ratingsIndex)});
+			
+			const allStars = rating.querySelectorAll('.star');
+			allStars.forEach((star, starIndex) => {
+				star.addEventListener('mouseenter', (e) => handleHover(e, ratingsIndex, 'mouseenter'));
+star.addEventListener('mouseleave', (e) => handleHover(e, ratingsIndex, 'mouseleave'));
+});
+});
 	</script>
 </body>
 
 </html>
+
+
+
